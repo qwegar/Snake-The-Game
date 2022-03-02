@@ -1,0 +1,36 @@
+h1.level-gen-title {
+	text-align: center;
+}
+
+.area {
+	text-align: center;
+	display: grid;
+	grid-template-columns: repeat(40, 20px);
+	grid-column-gap: 2px;
+	justify-content: center;
+}
+
+.box {
+	width: 20px;
+	height: 20px;
+	margin: 1px;
+	border: 1px solid black;
+	border-radius: 3px;
+	box-sizing: border-box;
+}
+
+.box:hover {
+	border: 3px solid black;
+}
+
+.black {
+	background-color: #000;
+}
+
+.teleport {
+	background-color: blue;
+}
+
+.snake-gen-point{
+	background-color: red;
+}

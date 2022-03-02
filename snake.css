@@ -1,0 +1,94 @@
+body {
+	background-color: rgb(190, 190, 190);
+}
+
+.game-title {
+	text-align: center;
+	color: aliceblue;
+	font-size: 40px;
+	text-transform: uppercase;
+}
+
+.game-screen {
+	position: relative;
+	margin: 0 auto;
+	width: 800px;
+	height: 400px;
+}
+
+#cnv {
+	background-color: rgb(75, 75, 75);
+	display: block;
+}
+
+.start-game-screen {
+	width: 800px;
+	height: 445px;
+	background-color: rgb(146, 146, 146);
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 30;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.game-over-screen {
+	width: 800px;
+	height: 400px;
+	background-color: rgba(255, 0, 0, .7);
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 5;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.game-over-screen h1 {
+	font-size: 50px;
+}
+
+.status-bar {
+	width: 800px;
+	min-height: 45px;
+	margin: 0 auto;
+	border: 3px solid black;
+	padding: 10px;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.status-bar .left {
+	position: absolute;
+	left: 10px;
+}
+
+.status-bar .right {
+	position: absolute;
+	right: 10px;
+}
+
+.generator {
+	width: 100vw;
+	min-height: 100vh;
+	background-color: rgb(173, 173, 173);
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.generator-close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 70px;
+	color: #fff;
+	cursor: pointer;
+}
