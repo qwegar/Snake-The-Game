@@ -1,60 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game</title>
-    <link rel="stylesheet" href="snake.css" />
-    <link rel="stylesheet" href="level-gen.css" />
-  </head>
 
-  <body>
-    <h1 class="game-title">Snake The Game</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game</title>
+  <link rel="stylesheet" href="snake.css" />
+  <link rel="stylesheet" href="level-gen.css" />
+</head>
 
-    <div class="game-screen">
-      <canvas id="cnv"></canvas>
+<body>
+  <h1 class="game-title" style="opacity:0;">Snake The Game</h1>
 
-      <div class="start-game-screen">
-        <h1>Start111</h1>
-        <p>Нажмите ENTER для начала</p>
+  <div class="game-screen">
+    <canvas id="cnv"></canvas>
+
+    <div class="start-game-screen">
+
+      <h1 class="game-title">Snake The Game</h1>
+
+      <span class="start-screen-readme">
         <p>используйте кнопки WASD для управление змейкой</p>
         <p>для паузы необходимо нажать пробел,</p>
         <p>а для перезапуска игры клавишу R или соответствующую кнопку на статус баре</p>
-      </div>
-
-      <div class="game-over-screen">
-        <h1>Game Over</h1>
-        <h2 class="score-in-game-over-screen">Score: 0</h2>
-      </div>
-    </div>
-
-    <div class="status-bar">
-      <span class="left">
-        Score:
-        <span id="score">0</span>
       </span>
-      <span class="right">
-        <button id="level-gen" class="status-bar-button">Level Generator</button>
-        <button id="reset-game" class="status-bar-button">Reset Game</button>
-      </span>
+
+      <h2>Нажмите ENTER для начала</h2>
     </div>
 
-    <!-- Level Generator -->
-
-    <div class="generator">
-      <span class="generator-close">&times;</span>
-      <h1 class="level-gen-title">Snake Level Generator</h1>
-      <div id="area" class="area"></div>
-      <div style="margin: 0 auto; text-align: center; padding: 10px">
-        <button id="gen">Generate</button>
-        <button id="reset">Resset</button>
-        <label for="teleport"><input type="checkbox" id="teleport" /> Teleport</label>
-      </div>
-      <hr />
-      <div id="out"></div>
+    <div class="game-over-screen">
+      <h1>Game Over</h1>
+      <h2 class="score-in-game-over-screen">Score: 0</h2>
     </div>
+  </div>
 
-    <script src="snake-script.js"></script>
-    <script src="level-gen.js"></script>
-  </body>
+  <div class="status-bar">
+    <span class="left">
+      Score:
+      <span id="score">0</span>
+    </span>
+    <span class="right">
+      <button id="level-gen" class="status-bar-button">Level Generator</button>
+      <button id="reset-game" class="status-bar-button">Reset Game</button>
+    </span>
+  </div>
+
+  <!-- Level Generator -->
+
+  <div class="generator">
+    <span class="generator-close">&times;</span>
+    <h1 class="level-gen-title">Snake Level Generator</h1>
+    <div id="area" class="area"></div>
+    <div style="margin: 0 auto; text-align: center; padding: 10px">
+      <button id="gen">Generate</button>
+      <button id="reset">Resset</button>
+      <label for="teleport"><input type="checkbox" id="teleport" /> Teleport</label>
+      <label for="big-world"><input type="checkbox" id="big-world" /> Big World</label>
+    </div>
+    <hr />
+    <div id="out"></div>
+  </div>
+
+  <p>
+    area-color <input type="color" name="" id="area-color"> |
+    snake-body-color <input type="color" name="" id="snake-body-color"> |
+    snake-head-color <input type="color" name="" id="snake-head-color"> |
+    apple-color <input type="color" name="" id="apple-color"> |
+    wall-color <input type="color" name="" id="wall-color"> |
+    teleport-color <input type="color" name="" id="teleport-color">
+  </p>
+
+
+
+  <script src="constants.js"></script>
+  <script src="snake-script.js"></script>
+  <script src="level-gen.js"></script>
+</body>
+
 </html>
