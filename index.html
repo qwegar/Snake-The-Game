@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <h1 class="game-title" style="opacity:0;">Snake The Game</h1>
+  <!-- <h1 class="game-title" style="opacity:0;">Snake The Game</h1> -->
 
   <div class="game-screen">
     <canvas id="cnv"></canvas>
@@ -40,6 +40,7 @@
       <span id="score">0</span>
     </span>
     <span class="right">
+      <button id="color-panel-btn" class="status-bar-button">Colors Setting</button>
       <button id="level-gen" class="status-bar-button">Level Generator</button>
       <button id="reset-game" class="status-bar-button">Reset Game</button>
     </span>
@@ -53,24 +54,32 @@
     <div id="area" class="area"></div>
     <div style="margin: 0 auto; text-align: center; padding: 10px">
       <button id="gen">Generate</button>
+      <button id="save-level-btn">Save Level</button>
+      <button id="load-level-btn">Load Level</button>
       <button id="reset">Resset</button>
       <label for="teleport"><input type="checkbox" id="teleport" /> Teleport</label>
       <label for="big-world"><input type="checkbox" id="big-world" /> Big World</label>
     </div>
-    <hr />
-    <div id="out"></div>
+    <hr>
+    <div id="save-levels" class="save-levels"></div>
   </div>
 
-  <p>
-    area-color <input type="color" name="" id="area-color"> |
-    snake-body-color <input type="color" name="" id="snake-body-color"> |
-    snake-head-color <input type="color" name="" id="snake-head-color"> |
-    apple-color <input type="color" name="" id="apple-color"> |
-    wall-color <input type="color" name="" id="wall-color"> |
-    teleport-color <input type="color" name="" id="teleport-color">
-  </p>
+  <div class="colors-wrapper">
+    <div id="colors" class="colors-control">
+      <label>Арена <input type="color" name="" id="area-color"></label>
+      <label>Змейка <input type="color" name="" id="snake-body-color"></label>
+      <label>Голова <input type="color" name="" id="snake-head-color"></label>
+      <label>Яблоко <input type="color" name="" id="apple-color"></label>
+      <label>Стена <input type="color" name="" id="wall-color"></label>
+      <label>Телепорт <input type="color" name="" id="teleport-color"></label>
+    </div>
+  </div>
 
-
+  <div class="save-level-screen">
+    <h1>Придумайте название для уровня</h1>
+    <input type="text" name="" id="save-level-name-input" class="save-level-name-input">
+    <button id="save-level-name-btn">Сохранить</button>
+  </div>
 
   <script src="constants.js"></script>
   <script src="snake-script.js"></script>

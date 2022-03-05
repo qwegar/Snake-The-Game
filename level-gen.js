@@ -1,5 +1,3 @@
-
-
 let tempTeleport = [];
 
 function genLevel(Cube) {
@@ -23,6 +21,7 @@ genLevel(CELL)
 
 let keyPress = false;
 let tempLevel = [];
+let tempLevelSave = {};
 
 document.addEventListener("keydown",(e) => {
   if (e.keyCode === 17) keyPress = true;
@@ -33,7 +32,7 @@ document.addEventListener("keyup",(e) => {
 });
 
 document.addEventListener("mousedown",(e) => {
-  e.preventDefault();
+  //e.preventDefault();
   keyPress = true;
 });
 
@@ -119,8 +118,10 @@ function generate() {
     ];
   }
   MAPS.level1 = tempLevel;
+
   document.querySelector(".generator").style.display = "none";
   tempLevel = [];
+
   appleGenerate();
 }
 
@@ -132,13 +133,13 @@ function resetGenerator() {
       el.classList.remove("teleport");
     }
   });
-  out.innerHTML = "";
   impTeleport.checked = false;
 }
 
 function bigWorldOn() {
   area.innerHTML = ''
   CELL = 10
+  APPLE.radius = CELL / 2
 
   genLevel(CELL)
 
@@ -152,6 +153,7 @@ function bigWorldOn() {
 function bigWorldOff() {
   area.innerHTML = ''
   CELL = 20
+  APPLE.radius = CELL / 2
 
   genLevel(CELL)
 
@@ -161,6 +163,76 @@ function bigWorldOff() {
     el.style.height = "20px";
   })
 }
+
+function saveLevelStart() {
+  let boxes = area.querySelectorAll(".box");
+  boxes.forEach((el) => {
+    if (el.classList.contains("teleport")) {
+      el.classList.remove("black");
+      tempLevel.push({
+        x: +el.getAttribute("data-x"),
+        y: +el.getAttribute("data-y"),
+        status: "teleport",
+      });
+    }
+  });
+
+  boxes.forEach((el) => {
+    if (el.classList.contains("black")) {
+      tempLevel.push({
+        x: +el.getAttribute("data-x"),
+        y: +el.getAttribute("data-y"),
+      });
+    }
+  });
+
+  if (tempLevel.length === 0) {
+    tempLevel = [
+      { x: -1,y: -1 },
+      { x: -2,y: -2 },
+    ];
+  }
+
+  saveLevelScreen.style.display = 'flex'
+
+
+
+
+  let jsonLevel = JSON.stringify(tempLevel)
+
+  localStorage.setItem('Level-Name',jsonLevel)
+  console.log(tempLevel)
+
+  saveLevelsOut.innerHTML = 'jsonLevel'
+
+
+  tempLevel = []
+}
+
+
+
+
+function saveLevelEnd() {
+  let levelName = document.querySelector('#save-level-name-input').value
+  tempLevelSave = {
+    Name: levelName,
+    Level: tempLevel
+  }
+
+
+  saveLevelScreen.style.display = 'flex'
+}
+
+
+
+
+
+document.querySelector('#save-level-name-btn').onclick = () => {
+  console.log(levelName)
+  saveLevelScreen.style.display = 'none'
+}
+
+saveLevelBtn.addEventListener('click',saveLevelStart)
 
 bigWorldCheck.addEventListener('input',() => bigWorldCheck.checked ? bigWorldOn() : bigWorldOff())
 

@@ -1,10 +1,9 @@
-
-
 let score = 0;
 let gameOver = true;
 
+startGameScreen.addEventListener('click',() => startGame())
 document.addEventListener("keydown",(e) => {
-  e.preventDefault();
+  //e.preventDefault();
   if (e.keyCode === 13) startGame();
   if (e.keyCode === 82) resetGame();
   if (gameOver === true) {
@@ -111,7 +110,7 @@ function appleGenerate() {
 function drawApple() {
   ctx.fillStyle = COLORS.apple;
   //ctx.fillRect(APPLE.x * CELL,APPLE.y * CELL,CELL,CELL);
-  ctx.arc((APPLE.x * CELL) + (CELL / 2),(APPLE.y * CELL) + (CELL / 2),10,0,Math.PI * 2)
+  ctx.arc((APPLE.x * CELL) + (CELL / 2),(APPLE.y * CELL) + (CELL / 2),APPLE.radius,0,Math.PI * 2)
   //ctx.arc(150,75,50,0,2 * Math.PI,false)
   ctx.fill()
 }
@@ -184,4 +183,3 @@ document.querySelector("#level-gen").addEventListener("click",() => {
 });
 
 document.querySelector("#reset-game").addEventListener("click",resetGame);
-

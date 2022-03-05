@@ -5,11 +5,20 @@ const scoreOut = document.querySelector("#score"),
 
 const area = document.querySelector("#area"),
   genBtn = document.querySelector("#gen"),
+  saveLevelBtn = document.querySelector("#save-level-btn"),
+  loadLevelBtn = document.querySelector("#load-level-btn"),
   rstBtn = document.querySelector("#reset"),
   out = document.querySelector("#out"),
   impTeleport = document.querySelector("#teleport"),
   bigWorldCheck = document.querySelector("#big-world"),
-  boxes = area.querySelectorAll(".box");
+  boxes = area.querySelectorAll(".box"),
+  saveLevelsOut = document.querySelector("#save-levels"),
+  saveLevelScreen = document.querySelector(".save-level-screen")
+
+
+const colorsPanel = document.querySelector("#colors")
+const colorsPanelBtn = document.querySelector("#color-panel-btn")
+
 
 const cnv = document.querySelector("#cnv");
 const ctx = cnv.getContext("2d");
@@ -30,7 +39,7 @@ const SNAKE = {
 };
 
 const COLORS = {
-  // area from CSS
+  area: "rgb(190, 190, 190)",
   snakeBody: "#ee3f46",
   snakeHead: "#ea4c89",
   apple: "green",
@@ -104,18 +113,32 @@ const MAPS = {
 const APPLE = {
   x: Math.floor(Math.random() * (gw / CELL)),
   y: Math.floor(Math.random() * (gh / CELL)),
+  radius: 10
 };
 
 
 
+const areaColor = document.querySelector('#area-color')
 const colorSnakeBody = document.querySelector('#snake-body-color')
 const colorSnakeHead = document.querySelector('#snake-head-color')
 const colorApple = document.querySelector('#apple-color')
 const colorWall = document.querySelector('#wall-color')
 const colorTeleport = document.querySelector('#teleport-color')
 
+areaColor.addEventListener('input',() => cnv.style.backgroundColor = areaColor.value)
 colorSnakeBody.addEventListener('input',() => COLORS.snakeBody = colorSnakeBody.value)
 colorSnakeHead.addEventListener('input',() => COLORS.snakeHead = colorSnakeHead.value)
 colorApple.addEventListener('input',() => COLORS.apple = colorApple.value)
 colorWall.addEventListener('input',() => COLORS.wall = colorWall.value)
 colorTeleport.addEventListener('input',() => COLORS.teleport = colorTeleport.value)
+
+let colorsPanelOpen = false
+colorsPanelBtn.addEventListener('click',() => {
+  if (!colorsPanelOpen) {
+    colorsPanel.classList.add('colors-control-open')
+    colorsPanelOpen = true
+  } else {
+    colorsPanel.classList.remove('colors-control-open')
+    colorsPanelOpen = false
+  }
+})
