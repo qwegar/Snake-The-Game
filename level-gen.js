@@ -200,9 +200,14 @@ function saveLevelStart() {
 
   saveLevelScreen.style.display = "flex";
 
-  document.querySelector("#save-level-name-input").addEventListener("input", () => {
-    document.querySelector("#save-level-name-input").value !== "" ? (document.querySelector("#save-level-name-btn").disabled = false) : (document.querySelector("#save-level-name-btn").disabled = true);
+  let inputName = document.querySelector("#save-level-name-input");
+
+  inputName.addEventListener("input", () => {
+    inputName.value !== "" ? (document.querySelector("#save-level-name-btn").disabled = false) : (document.querySelector("#save-level-name-btn").disabled = true);
   });
+
+  inputName.value = "";
+  inputName.focus();
 }
 
 function saveLevelEnd() {

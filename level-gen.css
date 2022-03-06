@@ -49,6 +49,10 @@ h1.level-gen-title {
   align-items: center;
 }
 
+.save-levels {
+  text-align: center;
+}
+
 .saved-level {
   display: inline-block;
   border: 1px solid white;
