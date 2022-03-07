@@ -10,76 +10,79 @@
 
   <body>
     <!-- <h1 class="game-title" style="opacity:0;">Snake The Game</h1> -->
+    <div id="game-wrapper" class="game-wrapper">
+      <div class="game-screen">
+        <canvas id="cnv"></canvas>
 
-    <div class="game-screen">
-      <canvas id="cnv"></canvas>
+        <div class="start-game-screen">
+          <h1 class="game-title">Snake The Game</h1>
 
-      <div class="start-game-screen">
-        <h1 class="game-title">Snake The Game</h1>
+          <span class="start-screen-readme">
+            <p>используйте кнопки WASD для управление змейкой</p>
+            <p>для паузы необходимо нажать пробел,</p>
+            <p>а для перезапуска игры клавишу R или соответствующую кнопку на статус баре</p>
+          </span>
 
-        <span class="start-screen-readme">
-          <p>используйте кнопки WASD для управление змейкой</p>
-          <p>для паузы необходимо нажать пробел,</p>
-          <p>а для перезапуска игры клавишу R или соответствующую кнопку на статус баре</p>
+          <h2>Нажмите ENTER для начала</h2>
+        </div>
+
+        <div class="game-over-screen">
+          <h1>Game Over</h1>
+          <h2 class="score-in-game-over-screen">Score: 0</h2>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <span class="left">
+          Score:
+          <span id="score">0</span>
         </span>
-
-        <h2>Нажмите ENTER для начала</h2>
+        <span class="right">
+          <button id="color-panel-btn" class="status-bar-button">Colors Setting</button>
+          <button id="level-gen" class="status-bar-button">Level Generator</button>
+          <button id="reset-game" class="status-bar-button">Reset Game</button>
+        </span>
       </div>
 
-      <div class="game-over-screen">
-        <h1>Game Over</h1>
-        <h2 class="score-in-game-over-screen">Score: 0</h2>
+      <!-- Level Generator -->
+
+      <div class="generator">
+        <span class="generator-close">&times;</span>
+        <h1 class="level-gen-title">Snake Level Generator</h1>
+        <div id="area" class="area"></div>
+        <div style="margin: 0 auto; text-align: center; padding: 10px">
+          <button id="gen">Generate</button>
+          <button id="reset">Resset</button>
+          <label for="teleport"><input type="checkbox" id="teleport" /> Teleport</label>
+          <label for="big-world"><input type="checkbox" id="big-world" /> Big World</label>
+          <button id="save-level-btn">Save Level</button>
+          <button id="delete-selected-levels-btn" disabled>Delete Selected Levels</button>
+          <button id="delete-all-levels-btn" disabled>Delete All Levels</button>
+        </div>
+        <hr />
+        <div id="save-levels-out" class="save-levels"></div>
+      </div>
+
+      <div class="colors-wrapper">
+        <div id="colors" class="colors-control">
+          <label>Арена <input type="color" name="" id="area-color" /></label>
+          <label>Змейка <input type="color" name="" id="snake-body-color" /></label>
+          <label>Голова <input type="color" name="" id="snake-head-color" /></label>
+          <label>Яблоко <input type="color" name="" id="apple-color" /></label>
+          <label>Стена <input type="color" name="" id="wall-color" /></label>
+          <label>Телепорт <input type="color" name="" id="teleport-color" /></label>
+        </div>
+      </div>
+
+      <div class="save-level-screen">
+        <h1>Придумайте название для уровня</h1>
+        <input type="text" name="" id="save-level-name-input" class="save-level-name-input" />
+        <span id="save-level-buttons">
+          <button id="save-level-name-btn" disabled>Сохранить</button>
+          <button id="save-level-close-btn">Отмена</button>
+        </span>
       </div>
     </div>
-
-    <div class="status-bar">
-      <span class="left">
-        Score:
-        <span id="score">0</span>
-      </span>
-      <span class="right">
-        <button id="color-panel-btn" class="status-bar-button">Colors Setting</button>
-        <button id="level-gen" class="status-bar-button">Level Generator</button>
-        <button id="reset-game" class="status-bar-button">Reset Game</button>
-      </span>
-    </div>
-
-    <!-- Level Generator -->
-
-    <div class="generator">
-      <span class="generator-close">&times;</span>
-      <h1 class="level-gen-title">Snake Level Generator</h1>
-      <div id="area" class="area"></div>
-      <div style="margin: 0 auto; text-align: center; padding: 10px">
-        <button id="gen">Generate</button>
-        <button id="reset">Resset</button>
-        <label for="teleport"><input type="checkbox" id="teleport" /> Teleport</label>
-        <label for="big-world"><input type="checkbox" id="big-world" /> Big World</label>
-        <button id="save-level-btn">Save Level</button>
-        <button id="delete-selected-levels-btn" disabled>Delete Selected Levels</button>
-        <button id="delete-all-levels-btn" disabled>Delete All Levels</button>
-      </div>
-      <hr />
-      <div id="save-levels-out" class="save-levels"></div>
-    </div>
-
-    <div class="colors-wrapper">
-      <div id="colors" class="colors-control">
-        <label>Арена <input type="color" name="" id="area-color" /></label>
-        <label>Змейка <input type="color" name="" id="snake-body-color" /></label>
-        <label>Голова <input type="color" name="" id="snake-head-color" /></label>
-        <label>Яблоко <input type="color" name="" id="apple-color" /></label>
-        <label>Стена <input type="color" name="" id="wall-color" /></label>
-        <label>Телепорт <input type="color" name="" id="teleport-color" /></label>
-      </div>
-    </div>
-
-    <div class="save-level-screen">
-      <h1>Придумайте название для уровня</h1>
-      <input type="text" name="" id="save-level-name-input" class="save-level-name-input" />
-      <button id="save-level-name-btn" disabled>Сохранить</button>
-    </div>
-
     <script src="constants.js"></script>
     <script src="snake-script.js"></script>
     <script src="level-gen.js"></script>

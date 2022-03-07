@@ -4,9 +4,9 @@ if (localStorage.getItem("save-levels") !== null) deleteAllLevelsBtn.disabled = 
 
 let tempTeleport = [];
 
-function genLevel(Cube) {
-  for (let y = 0; y < gh / Cube; y++) {
-    for (let x = 0; x < gw / Cube; x++) {
+function genLevel(cube) {
+  for (let y = 0; y < gh / cube; y++) {
+    for (let x = 0; x < gw / cube; x++) {
       let div = document.createElement("div");
       div.classList.add("box");
 
@@ -36,24 +36,19 @@ document.addEventListener("keyup", (e) => {
   if (e.keyCode === 17) keyPress = false;
 });
 
-document.addEventListener("mousedown", (e) => {
-  //e.preventDefault();
-  keyPress = true;
-});
-
-document.addEventListener("mouseup", (e) => {
-  keyPress = false;
-});
+document.addEventListener("mousedown", () => (keyPress = true));
+document.addEventListener("mouseup", () => (keyPress = false));
 
 area.addEventListener("mouseover", (e) => {
-  if (e.target.classList.contains("box") && keyPress) {
-    mouseOverBox(e);
-  }
+  if (e.target.classList.contains("box") && keyPress) mouseOverBox(e);
 });
+
 area.addEventListener("click", (e) => {
-  if (e.target.classList.contains("box")) {
-    mouseOverBox(e);
-  }
+  if (e.target.classList.contains("box")) mouseOverBox(e);
+});
+
+area.addEventListener("mousedown", (e) => {
+  if (e.target.classList.contains("box")) e.preventDefault();
 });
 
 genBtn.addEventListener("click", generate);
@@ -375,3 +370,4 @@ bigWorldCheck.addEventListener("input", () => (bigWorldCheck.checked ? bigWorldO
 // Integration
 
 document.querySelector(".generator-close").addEventListener("click", () => (document.querySelector(".generator").style.display = "none"));
+document.querySelector("#save-level-close-btn").addEventListener("click", () => (saveLevelScreen.style.display = "none"));
