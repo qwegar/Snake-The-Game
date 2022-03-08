@@ -1,7 +1,36 @@
-const scoreOut = document.querySelector("#score"),
-  gameOverScreen = document.querySelector(".game-over-screen"),
-  gameOverScore = document.querySelector(".score-in-game-over-screen"),
-  startGameScreen = document.querySelector(".start-game-screen");
+// Status Bar
+
+const scoreOut = document.querySelector("#score");
+const lifeOut = document.querySelector("#life");
+
+// Screens
+
+const gameOverScreen = document.querySelector(".game-over-screen");
+const gameOverScore = document.querySelector(".score-in-game-over-screen");
+const startGameScreen = document.querySelector(".start-game-screen");
+
+// Colors Settings
+
+const areaColor = document.querySelector("#area-color");
+const colorSnakeBody = document.querySelector("#snake-body-color");
+const colorSnakeBodyStroke = document.querySelector("#snake-body-stroke-color");
+const colorSnakeHead = document.querySelector("#snake-head-color");
+const colorAppleStroke = document.querySelector("#apple-stroke-color");
+const colorApple = document.querySelector("#apple-color");
+const colorWall = document.querySelector("#wall-color");
+const colorWallStroke = document.querySelector("#wall-stroke-color");
+const colorTeleport = document.querySelector("#teleport-color");
+
+const appleStrokeCheckbox = document.querySelector("#apple-stroke");
+const snakeBodyStrokeCheckbox = document.querySelector("#snake-body-stroke");
+const wallStrokeCheckbox = document.querySelector("#wall-stroke");
+
+const eatForm = document.querySelector("#eat-form");
+
+const colorsPanel = document.querySelector("#colors");
+const colorsPanelBtn = document.querySelector("#color-panel-btn");
+appleStrokeCheckbox.addEventListener("input", () => strokeOnOff(appleStrokeCheckbox, colorAppleStroke));
+// Generator Levels
 
 const area = document.querySelector("#area"),
   genBtn = document.querySelector("#gen"),
@@ -15,10 +44,9 @@ const area = document.querySelector("#area"),
   boxes = area.querySelectorAll(".box"),
   saveLevelScreen = document.querySelector(".save-level-screen");
 
-const colorsPanel = document.querySelector("#colors");
-const colorsPanelBtn = document.querySelector("#color-panel-btn");
-
 let saveLevelsOut = document.querySelector("#save-levels-out");
+
+// Game
 
 const cnv = document.querySelector("#cnv");
 const ctx = cnv.getContext("2d");
@@ -27,6 +55,7 @@ const gw = (cnv.width = 800);
 const gh = (cnv.height = 400);
 
 let CELL = 20;
+let life = 3;
 
 const SNAKE = {
   body: [
@@ -39,12 +68,15 @@ const SNAKE = {
 };
 
 const COLORS = {
-  area: "rgb(190, 190, 190)",
+  area: "#372e51",
   snakeBody: "#ee3f46",
   snakeHead: "#ea4c89",
-  apple: "green",
-  wall: "grey",
-  teleport: "blue",
+  apple: "#008000",
+  wall: "#808080",
+  teleport: "#0000ff",
+  snakeStroke: "#bd0000",
+  appleStroke: "#005100",
+  wallStroke: "#5c5c5c",
 };
 
 const MAPS = {
@@ -115,28 +147,3 @@ const APPLE = {
   y: Math.floor(Math.random() * (gh / CELL)),
   radius: 10,
 };
-
-const areaColor = document.querySelector("#area-color");
-const colorSnakeBody = document.querySelector("#snake-body-color");
-const colorSnakeHead = document.querySelector("#snake-head-color");
-const colorApple = document.querySelector("#apple-color");
-const colorWall = document.querySelector("#wall-color");
-const colorTeleport = document.querySelector("#teleport-color");
-
-areaColor.addEventListener("input", () => (cnv.style.backgroundColor = areaColor.value));
-colorSnakeBody.addEventListener("input", () => (COLORS.snakeBody = colorSnakeBody.value));
-colorSnakeHead.addEventListener("input", () => (COLORS.snakeHead = colorSnakeHead.value));
-colorApple.addEventListener("input", () => (COLORS.apple = colorApple.value));
-colorWall.addEventListener("input", () => (COLORS.wall = colorWall.value));
-colorTeleport.addEventListener("input", () => (COLORS.teleport = colorTeleport.value));
-
-let colorsPanelOpen = false;
-colorsPanelBtn.addEventListener("click", () => {
-  if (!colorsPanelOpen) {
-    colorsPanel.classList.add("colors-control-open");
-    colorsPanelOpen = true;
-  } else {
-    colorsPanel.classList.remove("colors-control-open");
-    colorsPanelOpen = false;
-  }
-});

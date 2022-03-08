@@ -6,6 +6,7 @@
     <title>Game</title>
     <link rel="stylesheet" href="snake.css" />
     <link rel="stylesheet" href="level-gen.css" />
+    <link rel="stylesheet" href="styles/colors-setting.css" />
   </head>
 
   <body>
@@ -26,6 +27,7 @@
           <h2>Нажмите ENTER для начала</h2>
         </div>
 
+        <div class="dead-screen" id="dead-screen"></div>
         <div class="game-over-screen">
           <h1>Game Over</h1>
           <h2 class="score-in-game-over-screen">Score: 0</h2>
@@ -33,10 +35,7 @@
       </div>
 
       <div class="status-bar">
-        <span class="left">
-          Score:
-          <span id="score">0</span>
-        </span>
+        <span class="left"> Life: <span id="life">3</span> | Score: <span id="score">0</span> </span>
         <span class="right">
           <button id="color-panel-btn" class="status-bar-button">Colors Setting</button>
           <button id="level-gen" class="status-bar-button">Level Generator</button>
@@ -65,12 +64,34 @@
 
       <div class="colors-wrapper">
         <div id="colors" class="colors-control">
-          <label>Арена <input type="color" name="" id="area-color" /></label>
-          <label>Змейка <input type="color" name="" id="snake-body-color" /></label>
-          <label>Голова <input type="color" name="" id="snake-head-color" /></label>
-          <label>Яблоко <input type="color" name="" id="apple-color" /></label>
-          <label>Стена <input type="color" name="" id="wall-color" /></label>
-          <label>Телепорт <input type="color" name="" id="teleport-color" /></label>
+          <span class="span-colors">
+            <label>Арена<br /><br /><input type="color" name="" id="area-color" /></label>
+            <label>Змейка<br /><br /><input type="color" name="" id="snake-body-color" /></label>
+            <label class="disabled">Обводка змейки<br /><input type="color" name="" id="snake-body-stroke-color" disabled /></label>
+            <label>Голова<br /><br /><input type="color" name="" id="snake-head-color" /></label>
+            <label>Еда<br /><br /><input type="color" name="" id="apple-color" /></label>
+            <label class="disabled">Обводка еды<br /><input type="color" name="" id="apple-stroke-color" disabled /></label>
+            <label>Стена<br /><br /><input type="color" name="" id="wall-color" /></label>
+            <label class="disabled">Обводка стены<br /><input type="color" name="" id="wall-stroke-color" disabled /></label>
+            <label>Телепорт<br /><br /><input type="color" name="" id="teleport-color" /></label>
+          </span>
+          <span class="span-checkeds">
+            <span class="left-side">
+              <label for="snake-body-stroke"><input type="checkbox" id="snake-body-stroke" /> Обводка змейки</label>
+              <label for="apple-stroke"><input type="checkbox" id="apple-stroke" /> Обводка еды</label>
+              <label for="wall-stroke"><input type="checkbox" id="wall-stroke" /> Обводка стены</label>
+              <label for="eat-form"><input type="checkbox" id="eat-form" /> Круглая еда</label>
+            </span>
+            <span class="right-side">
+              Цветовые схемы
+              <select>
+                <option>Пурпурная</option>
+                <option>Гламур</option>
+                <option>Белезна</option>
+                <option>Ночная</option>
+              </select>
+            </span>
+          </span>
         </div>
       </div>
 
@@ -86,5 +107,7 @@
     <script src="constants.js"></script>
     <script src="snake-script.js"></script>
     <script src="level-gen.js"></script>
+    <script src="scripts/colors-setting.js"></script>
+    <script></script>
   </body>
 </html>

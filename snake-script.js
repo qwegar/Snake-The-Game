@@ -1,32 +1,31 @@
 let score = 0;
 let gameOver = true;
 
-startGameScreen.addEventListener('click',() => startGame())
-document.addEventListener("keydown",(e) => {
-  //e.preventDefault();
+startGameScreen.addEventListener("click", () => startGame());
+document.addEventListener("keydown", (e) => {
   if (e.keyCode === 13) startGame();
   if (e.keyCode === 82) resetGame();
   if (gameOver === true) {
     return;
   } else {
-    if (e.keyCode === 87 && SNAKE.go !== "down") SNAKE.go = "up";
-    if (e.keyCode === 83 && SNAKE.go !== "up") SNAKE.go = "down";
-    if (e.keyCode === 68 && SNAKE.go !== "left") SNAKE.go = "right";
-    if (e.keyCode === 65 && SNAKE.go !== "right") SNAKE.go = "left";
+    if ((e.keyCode === 87 && SNAKE.go !== "down") || (e.keyCode === 38 && SNAKE.go !== "down")) SNAKE.go = "up";
+    if ((e.keyCode === 83 && SNAKE.go !== "up") || (e.keyCode === 40 && SNAKE.go !== "up")) SNAKE.go = "down";
+    if ((e.keyCode === 68 && SNAKE.go !== "left") || (e.keyCode === 39 && SNAKE.go !== "left")) SNAKE.go = "right";
+    if ((e.keyCode === 65 && SNAKE.go !== "right") || (e.keyCode === 37 && SNAKE.go !== "right")) SNAKE.go = "left";
     if (e.keyCode === 32) SNAKE.go = "stop";
   }
 });
 
 function drawSnake() {
   ctx.fillStyle = COLORS.snakeHead;
-  //ctx.strokeStyle = "#ee3f46";
+  ctx.strokeStyle = COLORS.snakeStroke;
   for (let i = 0; i < SNAKE.body.length; i++) {
     if (SNAKE.body[i].head !== true) {
       ctx.fillStyle = COLORS.snakeBody;
       //ctx.strokeStyle = "#ea4c89";
     }
-    ctx.fillRect(SNAKE.body[i].x * CELL,SNAKE.body[i].y * CELL,CELL,CELL);
-    ctx.strokeRect(SNAKE.body[i].x * CELL,SNAKE.body[i].y * CELL,CELL,CELL);
+    ctx.fillRect(SNAKE.body[i].x * CELL, SNAKE.body[i].y * CELL, CELL, CELL);
+    if (!colorSnakeBodyStroke.disabled) ctx.strokeRect(SNAKE.body[i].x * CELL, SNAKE.body[i].y * CELL, CELL, CELL);
   }
 }
 
@@ -35,7 +34,7 @@ function snakeStep() {
   let tempX = SNAKE.body[0].x;
   let tempY = SNAKE.body[0].y;
 
-  let tempBody = { x: tempX,y: tempY,head: true };
+  let tempBody = { x: tempX, y: tempY, head: true };
 
   if (SNAKE.go === "right") tempBody.x++;
   if (SNAKE.go === "left") tempBody.x--;
@@ -59,13 +58,20 @@ function snakeCollision() {
     if (el.y < 0) el.y = gh / CELL - 1;
   });
 
-  SNAKE.body.forEach((el,i) => {
+  // столкновение с хвостом
+  SNAKE.body.forEach((el, i) => {
     if (SNAKE.body[0].x === el.x && SNAKE.body[0].y === el.y && i !== 0) {
       let point = SNAKE.body.length - i;
-      SNAKE.body.splice(i,point);
+      SNAKE.body.splice(i, point);
       score -= point;
       if (score < 0) score = 0;
       scoreOut.innerHTML = score;
+
+      if (life > 0) lostTail();
+      if (life === 0) gameOverFunc();
+      life--;
+      if (life < 0) life = 0;
+      lifeOut.innerHTML = life;
     }
   });
 
@@ -90,6 +96,11 @@ function snakeCollision() {
   }
 }
 
+function lostTail() {
+  document.querySelector("#dead-screen").style.display = "flex";
+  setInterval(() => (document.querySelector("#dead-screen").style.display = "none"), 150);
+}
+
 function appleGenerate() {
   APPLE.x = Math.floor(Math.random() * (gw / CELL));
   APPLE.y = Math.floor(Math.random() * (gh / CELL));
@@ -109,10 +120,18 @@ function appleGenerate() {
 
 function drawApple() {
   ctx.fillStyle = COLORS.apple;
+  ctx.strokeStyle = COLORS.appleStroke;
   //ctx.fillRect(APPLE.x * CELL,APPLE.y * CELL,CELL,CELL);
-  ctx.arc((APPLE.x * CELL) + (CELL / 2),(APPLE.y * CELL) + (CELL / 2),APPLE.radius,0,Math.PI * 2)
+
+  if (eatForm.checked) {
+    ctx.arc(APPLE.x * CELL + CELL / 2, APPLE.y * CELL + CELL / 2, APPLE.radius, 0, Math.PI * 2);
+    ctx.fill();
+  } else {
+    ctx.fillRect(APPLE.x * CELL, APPLE.y * CELL, CELL, CELL);
+  }
   //ctx.arc(150,75,50,0,2 * Math.PI,false)
-  ctx.fill()
+  if (!colorAppleStroke.disabled && eatForm.checked) ctx.stroke();
+  if (!colorAppleStroke.disabled && !eatForm.checked) ctx.strokeRect(APPLE.x * CELL, APPLE.y * CELL, CELL, CELL);
 }
 
 function snakeEat() {
@@ -120,17 +139,20 @@ function snakeEat() {
     score++;
     scoreOut.innerHTML = score;
     appleGenerate();
-    SNAKE.body.push({ x: APPLE.x,y: APPLE.y,head: false });
+    SNAKE.body.push({ x: APPLE.x, y: APPLE.y, head: false });
   }
 }
 
 function drawLevel() {
   ctx.fillStyle = COLORS.teleport;
+  ctx.strokeStyle = COLORS.teleport;
   for (let i = 0; i < MAPS.level1.length; i++) {
     if (MAPS.level1[i].status !== "teleport") {
       ctx.fillStyle = COLORS.wall;
+      if (!colorWallStroke.disabled) ctx.strokeStyle = COLORS.wallStroke;
     }
-    ctx.fillRect(MAPS.level1[i].x * CELL,MAPS.level1[i].y * CELL,CELL,CELL);
+    ctx.fillRect(MAPS.level1[i].x * CELL, MAPS.level1[i].y * CELL, CELL, CELL);
+    if (!colorWallStroke.disabled) ctx.strokeRect(MAPS.level1[i].x * CELL, MAPS.level1[i].y * CELL, CELL, CELL);
   }
 }
 
@@ -149,9 +171,11 @@ function gameLoop() {
 
 setInterval(() => {
   gameLoop();
-},150);
+}, 150);
 
 function gameOverFunc() {
+  life = 0;
+  lifeOut.innerHTML = life;
   SNAKE.go = "stop";
   gameOver = true;
   gameOverScreen.style.display = "flex";
@@ -166,20 +190,23 @@ function startGame() {
 function resetGame() {
   score = 0;
   scoreOut.innerHTML = score;
+  life = 3;
+  lifeOut.innerHTML = life;
   SNAKE.body = [
-    { x: 7,y: 3,head: true },
-    { x: 6,y: 3,head: false },
-    { x: 5,y: 3,head: false },
-    { x: 4,y: 3,head: false },
+    { x: 7, y: 3, head: true },
+    { x: 6, y: 3, head: false },
+    { x: 5, y: 3, head: false },
+    { x: 4, y: 3, head: false },
   ];
   SNAKE.go = "stop";
   appleGenerate();
   gameOver = false;
   gameOverScreen.style.display = "none";
+  document.querySelector("#reset-game").blur();
 }
 
-document.querySelector("#level-gen").addEventListener("click",() => {
+document.querySelector("#level-gen").addEventListener("click", () => {
   document.querySelector(".generator").style.display = "block";
 });
 
-document.querySelector("#reset-game").addEventListener("click",resetGame);
+document.querySelector("#reset-game").addEventListener("click", resetGame);
