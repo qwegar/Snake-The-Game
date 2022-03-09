@@ -1,11 +1,26 @@
 .generator {
+  padding-top: 30px;
   position: fixed;
   top: 0;
   left: 0;
 }
 
+.generator-controls{
+  margin: 10px auto;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+}
+
+.generator-controls button{
+  padding: 3px 6px;
+  margin: 0 3px;
+}
+
 h1.level-gen-title {
   text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
 }
 
 .area {
@@ -55,7 +70,33 @@ h1.level-gen-title {
   align-items: center;
 }
 
+.save-level-screen h1{
+  font-size: 40px;
+  color: rgb(245, 245, 245);
+}
+
+.save-level-screen input{
+  width: 550px;
+  height: 50px;
+  border:1px solid #aaa;
+  border-radius: 10px;
+  margin: 50px 0;
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.save-level-screen button{
+  padding: 3px 6px;
+  display: inline-block;
+  width: 200px;
+  height: 60px;
+  font-size: 25px;
+  margin: 0 15px;
+}
+
 .save-levels {
+  margin-top: 15px;
   text-align: center;
 }
 
@@ -64,7 +105,8 @@ h1.level-gen-title {
   border: 1px solid white;
   cursor: pointer;
   padding: 6px;
-  margin: 5px;
+  margin: 10px;
+  color: #fff;
 }
 
 .big-world {

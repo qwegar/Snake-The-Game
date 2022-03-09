@@ -1,113 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game</title>
-    <link rel="stylesheet" href="snake.css" />
-    <link rel="stylesheet" href="level-gen.css" />
-    <link rel="stylesheet" href="styles/colors-setting.css" />
-  </head>
 
-  <body>
-    <!-- <h1 class="game-title" style="opacity:0;">Snake The Game</h1> -->
-    <div id="game-wrapper" class="game-wrapper">
-      <div class="game-screen">
-        <canvas id="cnv"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game</title>
+  <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles/snake.css" />
+  <link rel="stylesheet" href="styles/level-generator.css" />
+  <link rel="stylesheet" href="styles/colors-setting.css" />
+</head>
 
-        <div class="start-game-screen">
-          <h1 class="game-title">Snake The Game</h1>
+<body>
 
-          <span class="start-screen-readme">
-            <p>используйте кнопки WASD для управление змейкой</p>
-            <p>для паузы необходимо нажать пробел,</p>
-            <p>а для перезапуска игры клавишу R или соответствующую кнопку на статус баре</p>
-          </span>
+  <div id="game-wrapper" class="game-wrapper">
+    <div class="game-screen">
+      <canvas id="cnv"></canvas>
 
-          <h2>Нажмите ENTER для начала</h2>
-        </div>
+      <div class="start-game-screen">
+        <h1 class="game-title">Snake The Game</h1>
 
-        <div class="dead-screen" id="dead-screen"></div>
-        <div class="game-over-screen">
-          <h1>Game Over</h1>
-          <h2 class="score-in-game-over-screen">Score: 0</h2>
-        </div>
-      </div>
-
-      <div class="status-bar">
-        <span class="left"> Life: <span id="life">3</span> | Score: <span id="score">0</span> </span>
-        <span class="right">
-          <button id="color-panel-btn" class="status-bar-button">Colors Setting</button>
-          <button id="level-gen" class="status-bar-button">Level Generator</button>
-          <button id="reset-game" class="status-bar-button">Reset Game</button>
+        <span class="start-screen-readme">
+          <p>используйте кнопки WASD для управление змейкой</p>
+          <p>для паузы необходимо нажать пробел,</p>
+          <p>а для перезапуска игры клавишу R или соответствующую кнопку на статус баре</p>
         </span>
+
+        <h2>Нажмите ENTER для начала</h2>
       </div>
 
-      <!-- Level Generator -->
-
-      <div class="generator">
-        <span class="generator-close">&times;</span>
-        <h1 class="level-gen-title">Snake Level Generator</h1>
-        <div id="area" class="area"></div>
-        <div style="margin: 0 auto; text-align: center; padding: 10px">
-          <button id="gen">Generate</button>
-          <button id="reset">Resset</button>
-          <label for="teleport"><input type="checkbox" id="teleport" /> Teleport</label>
-          <label for="big-world"><input type="checkbox" id="big-world" /> Big World</label>
-          <button id="save-level-btn">Save Level</button>
-          <button id="delete-selected-levels-btn" disabled>Delete Selected Levels</button>
-          <button id="delete-all-levels-btn" disabled>Delete All Levels</button>
-        </div>
-        <hr />
-        <div id="save-levels-out" class="save-levels"></div>
+      <div class="dead-screen" id="dead-screen"></div>
+      <div class="game-over-screen">
+        <h1>Игра Окончена</h1>
+        <h2 class="score-in-game-over-screen">Очки: 0</h2>
       </div>
+    </div>
 
-      <div class="colors-wrapper">
-        <div id="colors" class="colors-control">
-          <span class="span-colors">
-            <label>Арена<br /><br /><input type="color" name="" id="area-color" /></label>
-            <label>Змейка<br /><br /><input type="color" name="" id="snake-body-color" /></label>
-            <label class="disabled">Обводка змейки<br /><input type="color" name="" id="snake-body-stroke-color" disabled /></label>
-            <label>Голова<br /><br /><input type="color" name="" id="snake-head-color" /></label>
-            <label>Еда<br /><br /><input type="color" name="" id="apple-color" /></label>
-            <label class="disabled">Обводка еды<br /><input type="color" name="" id="apple-stroke-color" disabled /></label>
-            <label>Стена<br /><br /><input type="color" name="" id="wall-color" /></label>
-            <label class="disabled">Обводка стены<br /><input type="color" name="" id="wall-stroke-color" disabled /></label>
-            <label>Телепорт<br /><br /><input type="color" name="" id="teleport-color" /></label>
+    <div class="status-bar">
+      <span class="left"> Жизни: <span id="life">3</span> | Очки: <span id="score">0</span> </span>
+      <span class="right">
+        <button id="color-panel-btn" class="status-bar-button">Тема оформления</button>
+        <button id="level-gen" class="status-bar-button">Генеротор уровней</button>
+        <button id="reset-game" class="status-bar-button">Сброс игры</button>
+      </span>
+    </div>
+
+    <!-- Level Generator -->
+
+    <div class="generator">
+      <span class="generator-close">&times;</span>
+      <h1 class="level-gen-title">Snake Level Generator</h1>
+      <div id="area" class="area"></div>
+      <div class="generator-controls">
+        <button id="gen">Сгенерировать</button>
+        <button id="reset">Сброс</button>
+        <label for="teleport"><input type="checkbox" id="teleport" /> Телепорт</label>
+        <label for="big-world"><input type="checkbox" id="big-world" /> Большой мир</label>
+        <button id="save-level-btn">Сохранить</button>
+        <button id="delete-selected-levels-btn" disabled>Удалить выбранные</button>
+        <button id="delete-all-levels-btn" disabled>Удалить все</button>
+      </div>
+      <hr />
+      <div id="save-levels-out" class="save-levels"></div>
+    </div>
+
+    <div class="save-level-screen">
+      <h1>Придумайте название для уровня</h1>
+      <input type="text" name="" id="save-level-name-input" class="save-level-name-input" />
+      <span id="save-level-buttons">
+        <button id="save-level-name-btn" disabled>Сохранить</button>
+        <button id="save-level-close-btn">Отмена</button>
+      </span>
+    </div>
+
+    <!-- Color Settings -->
+
+    <div class="colors-wrapper">
+      <div id="colors" class="colors-control">
+        <span class="span-colors">
+          <label>Арена<br /><br /><input type="color" name="" id="area-color" /></label>
+          <label>Змейка<br /><br /><input type="color" name="" id="snake-body-color" /></label>
+          <label class="disabled">Обводка змейки<br /><input type="color" name="" id="snake-body-stroke-color" disabled /></label>
+          <label>Голова<br /><br /><input type="color" name="" id="snake-head-color" /></label>
+          <label>Еда<br /><br /><input type="color" name="" id="apple-color" /></label>
+          <label class="disabled">Обводка еды<br /><input type="color" name="" id="apple-stroke-color" disabled /></label>
+          <label>Стена<br /><br /><input type="color" name="" id="wall-color" /></label>
+          <label class="disabled">Обводка стены<br /><input type="color" name="" id="wall-stroke-color" disabled /></label>
+          <label>Телепорт<br /><br /><input type="color" name="" id="teleport-color" /></label>
+        </span>
+        <span class="span-checkeds">
+          <span class="left-side">
+            <label for="snake-body-stroke"><input type="checkbox" id="snake-body-stroke" /> Обводка змейки</label>
+            <label for="apple-stroke"><input type="checkbox" id="apple-stroke" /> Обводка еды</label>
+            <label for="wall-stroke"><input type="checkbox" id="wall-stroke" /> Обводка стены</label>
+            <label for="eat-form"><input type="checkbox" id="eat-form" /> Круглая еда</label>
           </span>
-          <span class="span-checkeds">
-            <span class="left-side">
-              <label for="snake-body-stroke"><input type="checkbox" id="snake-body-stroke" /> Обводка змейки</label>
-              <label for="apple-stroke"><input type="checkbox" id="apple-stroke" /> Обводка еды</label>
-              <label for="wall-stroke"><input type="checkbox" id="wall-stroke" /> Обводка стены</label>
-              <label for="eat-form"><input type="checkbox" id="eat-form" /> Круглая еда</label>
-            </span>
-            <span class="right-side">
-              Цветовые схемы
-              <select>
-                <option>Пурпурная</option>
-                <option>Гламур</option>
-                <option>Белезна</option>
-                <option>Ночная</option>
-              </select>
-            </span>
+          <span class="right-side">
+            Цветовые схемы
+            <select id="color-theme">
+              <option value="one">Первая</option>
+              <option value="pur">Пурпурная</option>
+              <option value="glo">Гламур</option>
+              <option value="wth">Зимняя</option>
+              <option value="ngh">Ночная</option>
+              <option value="neo">Неон</option>
+            </select>
           </span>
-        </div>
-      </div>
-
-      <div class="save-level-screen">
-        <h1>Придумайте название для уровня</h1>
-        <input type="text" name="" id="save-level-name-input" class="save-level-name-input" />
-        <span id="save-level-buttons">
-          <button id="save-level-name-btn" disabled>Сохранить</button>
-          <button id="save-level-close-btn">Отмена</button>
         </span>
       </div>
     </div>
-    <script src="constants.js"></script>
-    <script src="snake-script.js"></script>
-    <script src="level-gen.js"></script>
-    <script src="scripts/colors-setting.js"></script>
-    <script></script>
-  </body>
+
+  </div>
+
+  <script src="scripts/constants.js"></script>
+  <script src="scripts/snake-script.js"></script>
+  <script src="scripts/level-generator.js"></script>
+  <script src="scripts/colors-setting.js"></script>
+  <script></script>
+</body>
+
 </html>

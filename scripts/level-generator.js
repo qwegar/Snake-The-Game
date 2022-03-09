@@ -15,8 +15,8 @@ function genLevel(cube) {
       if (x === 5 && y === 3) div.classList.add("snake-gen-point");
       if (x === 4 && y === 3) div.classList.add("snake-gen-point");
 
-      div.setAttribute("data-x", x);
-      div.setAttribute("data-y", y);
+      div.setAttribute("data-x",x);
+      div.setAttribute("data-y",y);
       area.append(div);
     }
   }
@@ -28,31 +28,35 @@ let tempLevel = [];
 let tempLevelSave = {};
 let allLocalSaveLevels = [];
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown",(e) => {
   if (e.keyCode === 17) keyPress = true;
 });
 
-document.addEventListener("keyup", (e) => {
+document.addEventListener("keyup",(e) => {
   if (e.keyCode === 17) keyPress = false;
 });
 
-document.addEventListener("mousedown", () => (keyPress = true));
-document.addEventListener("mouseup", () => (keyPress = false));
+document.addEventListener("mousedown",() => (keyPress = true));
+document.addEventListener("mouseup",() => (keyPress = false));
 
-area.addEventListener("mouseover", (e) => {
+area.addEventListener("mouseover",(e) => {
   if (e.target.classList.contains("box") && keyPress) mouseOverBox(e);
 });
 
-area.addEventListener("click", (e) => {
+area.addEventListener("click",(e) => {
   if (e.target.classList.contains("box")) mouseOverBox(e);
 });
 
-area.addEventListener("mousedown", (e) => {
+area.addEventListener("mousedown",(e) => {
   if (e.target.classList.contains("box")) e.preventDefault();
 });
 
-genBtn.addEventListener("click", generate);
-rstBtn.addEventListener("click", resetGenerator);
+genBtn.addEventListener("click",() => {
+  generate()
+});
+rstBtn.addEventListener("click",() => {
+  resetGenerator()
+});
 
 function mouseOverBox(e) {
   if (e.target.classList.contains("snake-gen-point")) return;
@@ -113,8 +117,8 @@ function generate() {
   resetGame();
   if (tempLevel.length === 0) {
     tempLevel = [
-      { x: -1, y: -1 },
-      { x: -2, y: -2 },
+      { x: -1,y: -1 },
+      { x: -2,y: -2 },
     ];
   }
   MAPS.level1 = tempLevel;
@@ -188,8 +192,8 @@ function saveLevelStart() {
 
   if (tempLevel.length === 0) {
     tempLevel = [
-      { x: -1, y: -1 },
-      { x: -2, y: -2 },
+      { x: -1,y: -1 },
+      { x: -2,y: -2 },
     ];
   }
 
@@ -197,7 +201,7 @@ function saveLevelStart() {
 
   let inputName = document.querySelector("#save-level-name-input");
 
-  inputName.addEventListener("input", () => {
+  inputName.addEventListener("input",() => {
     inputName.value !== "" ? (document.querySelector("#save-level-name-btn").disabled = false) : (document.querySelector("#save-level-name-btn").disabled = true);
   });
 
@@ -234,14 +238,11 @@ function saveLevelEnd() {
     let span = document.createElement("span");
     saveLevelsOut.appendChild(span);
     if (el.bigWorldStatus === true) {
-      console.log(el);
       span.classList.add("big-world");
     }
     span.classList.add("saved-level");
     span.innerHTML = el.name;
   });
-
-  console.log(allLocalSaveLevels);
 
   exportInLocalStorage(allLocalSaveLevels);
   tempLevel = [];
@@ -267,7 +268,7 @@ function chechSavesLevels() {
 }
 
 function exportInLocalStorage(obj) {
-  localStorage.setItem("save-levels", JSON.stringify(obj));
+  localStorage.setItem("save-levels",JSON.stringify(obj));
 }
 
 function importInLocalStorage() {
@@ -278,10 +279,8 @@ function loadLevelClick(e) {
   if (e.target.classList.contains("saved-level")) {
     let allLevels = JSON.parse(localStorage.getItem("save-levels"));
 
-    console.log(allLevels);
-
     tempLoadLevel = [];
-    allLevels.forEach((el, i) => {
+    allLevels.forEach((el,i) => {
       if (e.target.innerHTML === el.name) {
         if (el.bigWorldStatus) {
           bigWorldCheck.checked = true;
@@ -332,19 +331,17 @@ function deleteSelectedLevels() {
   selectedLevels.forEach((el) => selectedLevelsArr.push(el.innerHTML));
 
   let localStorageLevels = JSON.parse(localStorage.getItem("save-levels"));
-  console.log(selectedLevelsArr);
-  console.log(localStorageLevels);
 
-  localStorageLevels.forEach((localName, i) => {
+  localStorageLevels.forEach((localName,i) => {
     selectedLevelsArr.forEach((innerName) => {
       if (localName.name === innerName) {
-        localStorageLevels.splice(i, 1);
+        localStorageLevels.splice(i,1);
       }
     });
   });
 
   localStorage.removeItem("save-levels");
-  localStorage.setItem("save-levels", JSON.stringify(localStorageLevels));
+  localStorage.setItem("save-levels",JSON.stringify(localStorageLevels));
 
   saveLevelsOut.innerHTML = "";
 
@@ -356,8 +353,6 @@ function deleteSelectedLevels() {
   }
 
   deleteSelectedLevelsBtn.disabled = true;
-
-  //console.log(localStorageLevels);
 }
 
 function selectedLevels(e) {
@@ -379,20 +374,20 @@ function selectedLevels(e) {
   }
 }
 
-saveLevelsOut.addEventListener("contextmenu", selectedLevels);
-saveLevelsOut.addEventListener("click", loadLevelClick);
-deleteSelectedLevelsBtn.addEventListener("click", deleteSelectedLevels);
-deleteAllLevelsBtn.addEventListener("click", deleteAllSavedLevels);
+saveLevelsOut.addEventListener("contextmenu",selectedLevels);
+saveLevelsOut.addEventListener("click",loadLevelClick);
+deleteSelectedLevelsBtn.addEventListener("click",deleteSelectedLevels);
+deleteAllLevelsBtn.addEventListener("click",deleteAllSavedLevels);
 
 document.querySelector("#save-level-name-btn").onclick = () => {
   saveLevelEnd();
 };
 
-saveLevelBtn.addEventListener("click", saveLevelStart);
+saveLevelBtn.addEventListener("click",saveLevelStart);
 
-bigWorldCheck.addEventListener("input", () => (bigWorldCheck.checked ? bigWorldOn() : bigWorldOff()));
+bigWorldCheck.addEventListener("input",() => (bigWorldCheck.checked ? bigWorldOn() : bigWorldOff()));
 
 // Integration
 
-document.querySelector(".generator-close").addEventListener("click", () => (document.querySelector(".generator").style.display = "none"));
-document.querySelector("#save-level-close-btn").addEventListener("click", () => (saveLevelScreen.style.display = "none"));
+document.querySelector(".generator-close").addEventListener("click",() => (document.querySelector(".generator").style.display = "none"));
+document.querySelector("#save-level-close-btn").addEventListener("click",() => (saveLevelScreen.style.display = "none"));
