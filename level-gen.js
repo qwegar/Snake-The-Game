@@ -206,11 +206,15 @@ function saveLevelStart() {
 }
 
 function saveLevelEnd() {
+  let bigworld = false;
+  if (bigWorldCheck.checked) bigworld = true;
+
   allLocalSaveLevels = [];
   let levelName = document.querySelector("#save-level-name-input").value;
   tempLevelSave = {
     name: levelName,
     level: tempLevel,
+    bigWorldStatus: bigworld,
   };
 
   if (localStorage.getItem("save-levels") !== null) {
@@ -229,9 +233,15 @@ function saveLevelEnd() {
   allLocalSaveLevels.forEach((el) => {
     let span = document.createElement("span");
     saveLevelsOut.appendChild(span);
+    if (el.bigWorldStatus === true) {
+      console.log(el);
+      span.classList.add("big-world");
+    }
     span.classList.add("saved-level");
     span.innerHTML = el.name;
   });
+
+  console.log(allLocalSaveLevels);
 
   exportInLocalStorage(allLocalSaveLevels);
   tempLevel = [];
@@ -245,9 +255,13 @@ function chechSavesLevels() {
   } else {
     let savedLevels = JSON.parse(localStorage.getItem("save-levels"));
     savedLevels.forEach((el) => {
-      saveLevelsOut.innerHTML += `
-      <span class="saved-level">${el.name}</span>
-      `;
+      let span = document.createElement("span");
+      saveLevelsOut.appendChild(span);
+      if (el.bigWorldStatus === true) {
+        span.classList.add("big-world");
+      }
+      span.classList.add("saved-level");
+      span.innerHTML = el.name;
     });
   }
 }
@@ -263,18 +277,29 @@ function importInLocalStorage() {
 function loadLevelClick(e) {
   if (e.target.classList.contains("saved-level")) {
     let allLevels = JSON.parse(localStorage.getItem("save-levels"));
+
+    console.log(allLevels);
+
+    tempLoadLevel = [];
+    allLevels.forEach((el, i) => {
+      if (e.target.innerHTML === el.name) {
+        if (el.bigWorldStatus) {
+          bigWorldCheck.checked = true;
+          bigWorldOn();
+        } else {
+          bigWorldCheck.checked = false;
+          bigWorldOff();
+        }
+
+        tempLoadLevel = el.level;
+      }
+    });
+
     let boxes = area.querySelectorAll(".box");
 
     boxes.forEach((el) => {
       el.classList.remove("teleport");
       el.classList.remove("black");
-    });
-
-    tempLoadLevel = [];
-    allLevels.forEach((el, i) => {
-      if (e.target.innerHTML === el.name) {
-        tempLoadLevel = el.level;
-      }
     });
 
     tempLoadLevel.forEach((el) => {

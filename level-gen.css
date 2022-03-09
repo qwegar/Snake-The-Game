@@ -67,6 +67,10 @@ h1.level-gen-title {
   margin: 5px;
 }
 
+.big-world {
+  border: 1px solid rgb(0, 102, 255);
+}
+
 .saved-level-checked {
   border: 1px solid red;
 }

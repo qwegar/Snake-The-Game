@@ -40,5 +40,9 @@ function strokeOnOff(input, element) {
   }
 }
 
+function closeColorSetting() {
+  colorsPanel.style.top = "-150px";
+}
+
 snakeBodyStrokeCheckbox.addEventListener("input", () => strokeOnOff(snakeBodyStrokeCheckbox, colorSnakeBodyStroke));
 wallStrokeCheckbox.addEventListener("input", () => strokeOnOff(wallStrokeCheckbox, colorWallStroke));

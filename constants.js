@@ -2,6 +2,7 @@
 
 const scoreOut = document.querySelector("#score");
 const lifeOut = document.querySelector("#life");
+const colorsPanelBtn = document.querySelector("#color-panel-btn");
 
 // Screens
 
@@ -28,21 +29,22 @@ const wallStrokeCheckbox = document.querySelector("#wall-stroke");
 const eatForm = document.querySelector("#eat-form");
 
 const colorsPanel = document.querySelector("#colors");
-const colorsPanelBtn = document.querySelector("#color-panel-btn");
+
 appleStrokeCheckbox.addEventListener("input", () => strokeOnOff(appleStrokeCheckbox, colorAppleStroke));
+
 // Generator Levels
 
-const area = document.querySelector("#area"),
-  genBtn = document.querySelector("#gen"),
-  saveLevelBtn = document.querySelector("#save-level-btn"),
-  deleteSelectedLevelsBtn = document.querySelector("#delete-selected-levels-btn"),
-  deleteAllLevelsBtn = document.querySelector("#delete-all-levels-btn"),
-  rstBtn = document.querySelector("#reset"),
-  out = document.querySelector("#out"),
-  impTeleport = document.querySelector("#teleport"),
-  bigWorldCheck = document.querySelector("#big-world"),
-  boxes = area.querySelectorAll(".box"),
-  saveLevelScreen = document.querySelector(".save-level-screen");
+const area = document.querySelector("#area");
+const genBtn = document.querySelector("#gen");
+const saveLevelBtn = document.querySelector("#save-level-btn");
+const deleteSelectedLevelsBtn = document.querySelector("#delete-selected-levels-btn");
+const deleteAllLevelsBtn = document.querySelector("#delete-all-levels-btn");
+const rstBtn = document.querySelector("#reset");
+const out = document.querySelector("#out");
+const impTeleport = document.querySelector("#teleport");
+const bigWorldCheck = document.querySelector("#big-world");
+const boxes = area.querySelectorAll(".box");
+const saveLevelScreen = document.querySelector(".save-level-screen");
 
 let saveLevelsOut = document.querySelector("#save-levels-out");
 
